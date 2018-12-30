@@ -1,0 +1,9 @@
+# SCsub
+Import('env')
+Import('env_modules')
+
+env_language_server = env_modules.Clone()
+
+env_language_server.add_source_files(env.modules_sources, '*.cpp')
+
+Export('env')
