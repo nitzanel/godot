@@ -215,6 +215,11 @@ struct ResponseError {
     Variant data;
 };
 
+struct Message {
+    String header;
+    String content;
+};
+
 struct JsonRpcMessage {
     String jsonrpc;
 };
@@ -231,6 +236,15 @@ struct ResponseMessage: public JsonRpcMessage {
     Variant result;
     ResponseError error;
 };
+
+Message read_message(const String& message_string);
+int get_content_length(const Vector<String>& header);
+String get_content_type(const Vector<String>& header);
+
+String get_header_value(const Vector<String>& header, const String& field);
+Vector<String> split_header_to_fields(const String& header);
+const String header_content_seperator = "\r\n\r\n";
+const String header_seperator = "\r\n";
 
 
 }

@@ -30,11 +30,18 @@ class LanguageServer: public Object {
     bool running = false;
     Thread *thread;
     int port = 0;
+    int read_offset = 0;
+    Vector<char> buffer;
     Vector<String> supportedFeatures = {};
 
     private:
     static void server_thread_function(void *pLanguageServer);
     static void handle_connection(void *pLanguageServer); 
+    static String recieve_header(const Vector<char>& message_bytes);
+    static String recieve_content(LanguageServer* pLanguageServer, int content_length, int header_length);
+    static void remove_message_from_buffer(Vector<char>& buffer, int message_length);
+    static int recieve_bytes(LanguageServer* pLanguageServer);
+    static Message recieve_message(LanguageServer* pLanguageServer);
 
 
     
